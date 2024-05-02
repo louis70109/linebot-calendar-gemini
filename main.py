@@ -66,7 +66,7 @@ def linebot(request):
                 if msg == '!清空':
                     reply_msg = '已清空'
                     fdb.delete(user_chat_path, None)
-                elif text == '!摘要':
+                elif msg == '!摘要':
                     model = genai.GenerativeModel('gemini-pro')
                     response = model.generate_content(
                         f'Summary the following message in Traditional Chinese by less 5 list points. \n{messages}')
