@@ -19,10 +19,10 @@ import google.generativeai as genai
 
 
 # 使用環境變量讀取憑證
-secret = os.getenv('LINE_CHANNEL_SECRET', None)
-token = os.getenv('LINE_CHANNEL_ACCESS_TOKEN', None)
+secret = os.getenv('ChannelSecret', None)
+token = os.getenv('ChannelAccessToken', None)
 firebase_url = os.getenv('FIREBASE_URL')
-gemini_key = os.getenv('GEMINI_API_KEY')
+gemini_key = os.getenv('GOOGLE_GEMINI_API_KEY')
 
 
 # Initialize the Gemini Pro API
