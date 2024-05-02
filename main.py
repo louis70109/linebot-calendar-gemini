@@ -66,20 +66,11 @@ def linebot(request):
                 if msg == '!清空':
                     reply_msg = '已清空'
                     fdb.delete(user_chat_path, None)
-                elif msg == '紅外線圖':
-                    url = "https://www.cwa.gov.tw/Data/satellite/LCC_IR1_CR_2750/LCC_IR1_CR_2750-2024-04-26-00-00.jpg"
-                    response = requests.get(url)
-                    if response.status_code == 200:
-                        image_data = response.content
-                        image = Image.open(BytesIO(image_data))
-
-                        model = genai.GenerativeModel('gemini-pro-vision')
-                        response = model.generate_content([
-                            "Does the following image look moist? Reply Yes or No in traditional Chinese",
-                            image
-                        ])
-                        print(response.text)
-                        reply_msg = f"台灣上方是否有雲曾：{response.text}"
+                elif text == '!摘要':
+                    model = genai.GenerativeModel('gemini-pro')
+                    response = model.generate_content(
+                        f'Summary the following message in Traditional Chinese by less 5 list points. \n{messages}')
+                    reply_msg = response.text
                 else:
                     model = genai.GenerativeModel('gemini-pro')
                     messages.append({'role': 'user', 'parts': [msg]})
