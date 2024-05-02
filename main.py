@@ -75,11 +75,11 @@ def linebot(request):
 
                         model = genai.GenerativeModel('gemini-pro-vision')
                         response = model.generate_content([
-                            "Does following image looks moist? Reply Yes or No in traditional chinese",
+                            "Does the following image look moist? Reply Yes or No in traditional Chinese",
                             image
                         ])
                         print(response.text)
-                        reply_msg = f"地板是否是濕的：{response.text}"
+                        reply_msg = f"台灣上方是否有雲曾：{response.text}"
                 else:
                     model = genai.GenerativeModel('gemini-pro')
                     messages.append({'role': 'user', 'parts': [msg]})
