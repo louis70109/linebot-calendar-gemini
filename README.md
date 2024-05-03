@@ -2,6 +2,56 @@
 
 This project demonstrates how to create a LINEBot with memory capabilities, allowing for continuous and context-aware conversations. The bot leverages several platforms for its development and deployment.
 
+       ┌─┐                                                                                       
+       ║"│                                                                                       
+       └┬┘                                                                                       
+       ┌┼┐                                                                                       
+        │            ┌─────┐          ┌──────────────┐               ┌────────┐          ┌──────┐
+       ┌┴┐           │Group│          │Webhook_Server│               │Firebase│          │Gemini│
+      User           └─────┘          └──────┬───────┘               └────────┘          └──────┘
+       │    傳送文章訊息  │                    │                           │                  │    
+       │ ──────────────>│                    │                           │                  │    
+       │                │                    │                           │                  │    
+       │                │     傳送用戶指令     │                           │                  │    
+       │                │───────────────────>│                           │                  │    
+       │                │                    │                           │                  │    
+       │                │                    │   儲存聊天狀態在 Realtime DB│                  │    
+       │                │                    │ ────────────────────────> |                 │    
+       │                │                    │                           │                  │    
+       │                │                    │           儲存完畢         │                  │    
+       │                │                    │ <──────────────────────── |                  │    
+       │                │                    │                           │                  │    
+       │                │    回傳已完成文字    │                           │                  │    
+       │                │<───────────────────│                           │                  │    
+       │                │                    │                           │                  │    
+       │   輸入 "!摘要"  │                    │                           │                  │    
+       │ ──────────────>│                    │                           │                  │    
+       │                │                    │                           │                  │    
+       │                │     傳送用戶指令     │                           │                  │    
+       │                │───────────────────>│                           │                  │    
+       │                │                    │                           │                  │    
+       │                │                    │          抓取聊天記錄       │                  │    
+       │                │                    │ ────────────────────────> |                  │    
+       │                │                    │                           │                  │    
+       │                │                    │           回傳清單         │                  │    
+       │                │                    │ <─────────────────────────|                  │    
+       │                │                    │                           │                  │    
+       │                │                    │               下prompt 進行摘要運算            │    
+       │                │                    │ ────────────────────────────────────────────>|    
+       │                │                    │                           │                  │    
+       │                │                    │                   回傳摘要清單                 │    
+       │                │                    │ <────────────────────────────────────────────|    
+       │                │                    │                           │                  │    
+       │                │   回傳摘要資訊至群組  │                           │                  │    
+       │                │<───────────────────│                           │                  │    
+      User           ┌─────┐          ┌──────┴───────┐               ┌────────┐          ┌──────┐
+       ┌─┐           │Group│          │Webhook_Server│               │Firebase│          │Gemini│
+       ║"│           └─────┘          └──────────────┘               └────────┘          └──────┘
+       └┬┘                                                                                       
+       ┌┼┐                                                                                       
+        │                                                                                        
+       ┌┴┐                                                                                       
+
 ## Platforms Used
 
 - **LINE Developers**: To create and configure the LINEBot.
@@ -75,9 +125,9 @@ Set the environment to the first generation and the region to `asia-east1` (Taiw
 
 Add four runtime environment variables:
 
-- `GEMINI_API_KEY`: Your Gemini Pro secret key.
-- `LINE_BOT_TOKEN`: Your LINE Developers Channel access token.
-- `LINE_BOT_SECRET`: Your LINE Developers Channel secret.
+- `GOOGLE_GEMINI_API_KEY`: Your Gemini Pro secret key.
+- `ChannelAccessToken`: Your LINE Developers Channel access token.
+- `ChannelSecret`: Your LINE Developers Channel secret.
 - `FIREBASE_URL`: Your Firebase URL.
 
 ### Step 4: Deploy
